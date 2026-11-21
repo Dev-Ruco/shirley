@@ -191,24 +191,149 @@
   <div class="overlay" id="overlay"></div><aside class="drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-labelledby="cartHeading"><div class="drawer-head"><h2 id="cartHeading" class="serif">O seu carrinho</h2><button class="close" id="cartClose" aria-label="Fechar carrinho">×</button></div><div class="drawer-list" id="cartItems"></div><div class="drawer-bottom"><div class="total"><span>Subtotal</span><span id="cartTotal">0 MT</span></div><button class="btn" id="checkout">Enviar encomenda por WhatsApp <span aria-hidden="true">↗</span></button><p>Não há pagamento neste site. A compra só é confirmada após contacto com a loja.</p></div></aside>
   <div class="modal" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsHeading"><div class="modal-top"><div><h2 id="settingsHeading" class="serif">Personalizar loja</h2><p>Configure a demonstração no seu navegador. Para publicar, substitua também os produtos e preços no código.</p></div><button class="close" id="settingsClose" aria-label="Fechar personalização">×</button></div><form id="settingsForm"><label class="field"><span>Nome da loja</span><input id="storeName" required maxlength="55" placeholder="Beleza Brasil e China" /></label><label class="field"><span>WhatsApp de encomendas</span><input id="storePhone" inputmode="tel" placeholder="258840000000" pattern="[+0-9 ()-]{9,23}" /><small>Inclua o indicativo do país. Ex.: 25884XXXXXXX. Não introduza um número que não lhe pertença.</small></label><button class="btn" type="submit">Guardar definições</button></form></div><div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script>
-  // Dados de demonstração — substitua por referências, preços e imagens efectivas.
+  // Dados identificados pelas embalagens de referência; preços apenas indicativos.
   const products = [
-    {id:1,category:'Cabelo',name:'Creme de Pentear Cachos',desc:'Creme modelador para integrar a sua rotina de cuidado capilar.',price:690,tag:'Favorito da colecção',type:'pump',bg:'#f4e2e5',c1:'#a54b66',c2:'#e1a4b0',label:'CACHOS'},
-    {id:2,category:'Cabelo',name:'Máscara de Hidratação',desc:'Máscara capilar para complementar os seus cuidados semanais.',price:850,tag:'Cuidado intensivo',type:'jar',bg:'#f7e6db',c1:'#c98f7e',c2:'#f4d1b6',label:'HIDRATA'},
-    {id:3,category:'Rosto',name:'Sérum Facial',desc:'Uma opção prática para enriquecer o ritual diário de rosto.',price:990,tag:'Rotina de rosto',type:'dropper',bg:'#e8ece4',c1:'#98ac8e',c2:'#dfe7c5',label:'SÉRUM'},
-    {id:4,category:'Corpo',name:'Loção Corporal',desc:'Um toque de conforto para o cuidado diário da pele.',price:750,tag:'Cuidado diário',type:'pump',bg:'#f2e5e0',c1:'#b97776',c2:'#eac5b0',label:'CORPO'},
-    {id:5,category:'Cabelo',name:'Óleo de Tratamento',desc:'Produto de acabamento para a sua rotina de cuidado capilar.',price:590,tag:'Para os fios',type:'dropper',bg:'#eee8d9',c1:'#ab906a',c2:'#e5c999',label:'ÓLEO'},
-    {id:6,category:'Corpo',name:'Esfoliante Corporal',desc:'Produto para complementar uma rotina de cuidados corporais.',price:790,tag:'Ritual semanal',type:'jar',bg:'#eee0e7',c1:'#a9849e',c2:'#dabacb',label:'ESFOLIA'}
+    {
+      "id": 1,
+      "brand": "Dove",
+      "category": "Corpo",
+      "name": "Dove Pró-Ceramidas",
+      "desc": "Sérum corporal para pele seca, com colagénio, pantenol e glicerina.",
+      "price": 1050,
+      "size": "380 ml",
+      "img": "dove-serum-pro-ceramidas-380ml.webp"
+    },
+    {
+      "id": 2,
+      "brand": "Dove",
+      "category": "Corpo",
+      "name": "Dove Niacinamida",
+      "desc": "Sérum corporal com niacinamida, vitamina C e óleo de rosa mosqueta.",
+      "price": 1080,
+      "size": "380 ml",
+      "img": "dove-serum-niacinamida-380ml.webp"
+    },
+    {
+      "id": 3,
+      "brand": "Dove",
+      "category": "Corpo",
+      "name": "Dove Creme Sérum B3",
+      "desc": "Antitranspirante em creme com niacinamida, de secagem rápida.",
+      "price": 450,
+      "size": "50 g",
+      "img": "dove-creme-serum-niacinamida-50g.webp"
+    },
+    {
+      "id": 4,
+      "brand": "Dove",
+      "category": "Corpo",
+      "name": "Dove Sérum Glicólico",
+      "desc": "Cuidado corporal para textura irregular com ureia, ácido salicílico e niacinamida.",
+      "price": 1100,
+      "size": "380 ml",
+      "img": "dove-serum-glicolico-380ml.webp"
+    },
+    {
+      "id": 5,
+      "brand": "Dove",
+      "category": "Corpo",
+      "name": "Dove Creme Vitamina E",
+      "desc": "Antitranspirante em creme com vitamina E para cuidado diário das axilas.",
+      "price": 430,
+      "size": "50 g",
+      "img": "dove-creme-serum-vitamina-e-50g.webp"
+    },
+    {
+      "id": 6,
+      "brand": "Dove",
+      "category": "Corpo",
+      "name": "Dove Óleo Firmador",
+      "desc": "Óleo sérum corporal com pró-colagénio e óleo de semente de uva.",
+      "price": 950,
+      "size": "150 ml",
+      "img": "dove-oleo-serum-firmador-150ml.webp"
+    },
+    {
+      "id": 7,
+      "brand": "NIVEA",
+      "category": "Corpo",
+      "name": "NIVEA Pele Uniforme",
+      "desc": "Hidratante Beleza Radiante com vitamina C, para pele seca.",
+      "price": 610,
+      "size": "200 ml",
+      "img": "nivea-beleza-radiante-pele-uniforme-200ml.webp"
+    },
+    {
+      "id": 8,
+      "brand": "NIVEA",
+      "category": "Corpo",
+      "name": "NIVEA Cuidado Intenso",
+      "desc": "Loção Beleza Radiante com óleos e vitaminas para pele seca e extrasseca.",
+      "price": 760,
+      "size": "400 ml",
+      "img": "nivea-beleza-radiante-cuidado-intenso-400ml.webp"
+    },
+    {
+      "id": 9,
+      "brand": "NIVEA",
+      "category": "Rosto",
+      "name": "NIVEA Sun FPS 70",
+      "desc": "Protector solar facial de toque seco, com controlo do brilho.",
+      "price": 890,
+      "size": "40 ml",
+      "img": "nivea-sun-toque-seco-fps70-40ml.webp"
+    },
+    {
+      "id": 10,
+      "brand": "Paixão",
+      "category": "Corpo",
+      "name": "Paixão Ameixa Rubi",
+      "desc": "Loção deo-hidratante Tentadora com óleo de amêndoas.",
+      "price": 650,
+      "size": "400 ml",
+      "img": "paixao-tentadora-ameixa-rubi-400ml.webp"
+    },
+    {
+      "id": 11,
+      "brand": "Porán",
+      "category": "Corpo",
+      "name": "Porán Esfoliante Rosa Mosqueta",
+      "desc": "Esfoliante corporal de rosa mosqueta para a rotina de limpeza da pele.",
+      "price": 680,
+      "size": "250 g",
+      "img": "poran-rosa-mosqueta-esfoliante-250g.webp"
+    },
+    {
+      "id": 12,
+      "brand": "Porán",
+      "category": "Kits",
+      "name": "Kit Porán Rosa Mosqueta",
+      "desc": "Conjunto com sabonete facial, hidratante corporal, esfoliante e óleo.",
+      "price": 1950,
+      "size": "4 peças",
+      "img": "poran-rosa-mosqueta-kit.webp"
+    },
+    {
+      "id": 13,
+      "brand": "Rhode",
+      "category": "Lábios",
+      "name": "Rhode Lip Tint · 4 cores",
+      "desc": "Conjunto de quatro tons de bálsamo labial com pigmento.",
+      "price": 2150,
+      "size": "4 unidades",
+      "img": "rhode-peptide-lip-tint-quatro-cores.webp"
+    }
   ];
+  const categories = ['Todos','Corpo','Rosto','Lábios','Kits'];
+  const catalogImage = name => 'assets/images/catalogo/'+name;
   const $ = s => document.querySelector(s);
   const money = n => new Intl.NumberFormat('pt-PT',{maximumFractionDigits:0}).format(n)+' MT';
   const esc = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const svg = p => {const id='gr'+p.id;const defs=`<defs><linearGradient id="${id}"><stop stop-color="${p.c1}"/><stop offset=".47" stop-color="${p.c2}"/><stop offset="1" stop-color="${p.c1}"/></linearGradient></defs>`;let shape='';if(p.type==='jar')shape=`<rect x="52" y="57" width="156" height="41" rx="10" fill="${p.c1}"/><rect x="60" y="88" width="140" height="121" rx="23" fill="url(#${id})"/><rect x="76" y="118" width="108" height="67" rx="5" fill="#fff8ee"/><text x="130" y="140" text-anchor="middle" font-size="19" fill="${p.c1}" font-family="Georgia">B+C</text><text x="130" y="161" text-anchor="middle" font-size="9" fill="${p.c1}" letter-spacing="1">${p.label}</text>`;else if(p.type==='dropper')shape=`<rect x="104" y="24" width="52" height="38" rx="5" fill="${p.c1}"/><rect x="113" y="11" width="35" height="18" rx="5" fill="#3f3436"/><rect x="112" y="60" width="36" height="21" fill="#c9a7a0"/><rect x="75" y="74" width="110" height="141" rx="18" fill="url(#${id})"/><rect x="89" y="118" width="82" height="64" rx="3" fill="#fffbf2"/><text x="130" y="141" text-anchor="middle" font-size="18" fill="${p.c1}" font-family="Georgia">B+C</text><text x="130" y="163" text-anchor="middle" font-size="9" fill="${p.c1}" letter-spacing="1">${p.label}</text>`;else shape=`<rect x="83" y="52" width="94" height="163" rx="20" fill="url(#${id})"/><rect x="100" y="35" width="60" height="24" rx="4" fill="#d7c2b7"/><rect x="110" y="23" width="40" height="16" rx="4" fill="${p.c1}"/><path d="M130 23v-9h35" fill="none" stroke="${p.c1}" stroke-width="7" stroke-linecap="round"/><rect x="96" y="100" width="68" height="83" rx="4" fill="#fff7eb"/><text x="130" y="126" text-anchor="middle" font-size="18" fill="${p.c1}" font-family="Georgia">B+C</text><text x="130" y="148" text-anchor="middle" font-size="8" fill="${p.c1}" letter-spacing="1">${p.label}</text><path d="M112 162q18-19 36 0" stroke="${p.c1}" fill="none" stroke-width="1.3"/>`;return `<svg viewBox="0 0 260 250" role="img" aria-label="Ilustração ilustrativa de ${esc(p.name)}">${defs}<ellipse cx="130" cy="226" rx="75" ry="10" fill="#6b4b521b"/>${shape}</svg>`};
-  let cart={};try{cart=JSON.parse(localStorage.getItem('beleza_demo_cart')||'{}')||{}}catch(e){};
+  let cart={};try{cart=JSON.parse(localStorage.getItem('beleza_catalog_cart_v2')||'{}')||{}}catch(e){};
   let cfg={name:'Beleza Brasil e China',phone:''};try{cfg={...cfg,...JSON.parse(localStorage.getItem('beleza_demo_cfg')||'{}')}}catch(e){};if(cfg.name==='Beleza Brasil')cfg.name='Beleza Brasil e China';
   let active='Todos';let toastTimer;
   function toast(s){$('#toast').textContent=s;$('#toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),3500)}
-  function saveCart(){try{localStorage.setItem('beleza_demo_cart',JSON.stringify(cart))}catch(e){}renderCart()}
+  function saveCart(){try{localStorage.setItem('beleza_catalog_cart_v2',JSON.stringify(cart))}catch(e){}renderCart()}
   function setBrand(){document.title=cfg.name+' — Cosméticos do Brasil e da China';$('#footerBrand').textContent=cfg.name;const words=cfg.name.trim().split(/\s+/);const last=words.pop()||'Brasil';const first=words.join(' ');const logo=cfg.name==='Beleza Brasil e China'?'Beleza <em>Brasil e China.</em>':(first?esc(first)+' ':'')+'<em>'+esc(last)+(last.endsWith('.')?'':'.')+'</em>';const image='<img class="brand-image" src="assets/images/a_clean_vector_style_logo_on_a_transparent_backgro.png" width="2172" height="724" alt="Logótipo Beleza Brasil e China" />';$('#brandLogo').innerHTML=cfg.name==='Beleza Brasil e China'?image:logo;$('#footerLogo').innerHTML=cfg.name==='Beleza Brasil e China'?image:logo;$('#storeName').value=cfg.name;$('#storePhone').value=cfg.phone;}
   function renderFilters(){$('#filters').innerHTML=['Todos','Cabelo','Rosto','Corpo'].map(c=>`<button class="chip ${active===c?'active':''}" data-filter="${c}" aria-pressed="${active===c}">${c==='Todos'?'Todos os produtos':c}</button>`).join('')}
   function renderProducts(){renderFilters();$('#productGrid').innerHTML=products.filter(p=>active==='Todos'||p.category===active).map(p=>`<article class="product"><div class="pvisual" style="--vbg:${p.bg}"><span class="ptag">${esc(p.tag)}</span>${svg(p)}</div><div class="ptext"><div class="pcat">${esc(p.category)}</div><h3 class="ptitle">${esc(p.name)}</h3><p class="pdesc">${esc(p.desc)}</p><div class="pbottom"><div class="price">${money(p.price)}</div><button class="addbtn" data-add="${p.id}" aria-label="Adicionar ${esc(p.name)} ao carrinho"><svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.7"><path d="M12 5v14M5 12h14"/></svg></button></div></div></article>`).join('')}
