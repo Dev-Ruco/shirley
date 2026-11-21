@@ -23,6 +23,8 @@ O botão **Personalizar loja** altera apenas os dados guardados no navegador ond
 
 ## Estrutura
 - `index.html` — página completa (HTML, CSS e JavaScript).
+- `assets/logo.svg` — logótipo profissional vectorial da Beleza Brasil e China.
+- `assets/favicon.svg` — símbolo utilizado como ícone do navegador.
 - `README.md` — instruções.
 
 ## Publicação
