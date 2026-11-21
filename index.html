@@ -106,26 +106,45 @@
     .brand-image{display:block;width:214px;max-width:100%;height:auto;max-height:74px;object-fit:contain}
     .footer .brand-image{width:245px;max-height:90px}
     @media(max-width:760px){.nav-inner{height:70px}.nav .brand-image{width:min(53vw,181px);max-height:63px}.footer .brand-image{width:min(65vw,230px)}.nav-inner .logo{min-width:0;flex:0 1 auto}.filterbar{top:70px}html{scroll-padding-top:78px}}
-    /* Hero comercial: fotografia integral, duas versões em WebP e sem sobreposições de texto na imagem. */
+    /* Hero A: fotografia imersiva em toda a largura, chamada para acção central. */
+    .hero{position:relative;isolation:isolate;overflow:hidden;background:#60283f;color:#fff}
     .hero:before{display:none}
-    .hero-grid{grid-template-columns:minmax(0,.85fr) minmax(0,1.55fr);min-height:520px;gap:clamp(20px,3vw,42px)}
-    .hero-copy{padding:56px 0}
-    .hero-copy h1{font-size:clamp(43px,4.6vw,65px);line-height:1.1}
-    .hero-visual{position:relative;min-width:0;height:auto;align-self:center;display:block}
-    .hero-photo{display:block;width:100%;overflow:hidden;border-radius:20px;background:#d6a9b0;box-shadow:0 18px 54px rgba(85,33,51,.11)}
-    .hero-photo img{display:block;width:100%;height:auto;aspect-ratio:1672/941;object-fit:cover}
+    .hero:after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(31,10,25,.08) 0%,rgba(31,10,25,.08) 30%,rgba(31,10,25,.30) 58%,rgba(31,10,25,.79) 100%)}
+    .hero-grid{position:static;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-height:clamp(610px,calc(100svh - 82px),850px);gap:0;padding-top:80px;padding-bottom:clamp(48px,7vh,95px)}
+    .hero-visual{position:absolute;inset:0;z-index:0;width:100%;height:100%;display:block;min-width:0;align-self:auto}
+    .hero-photo{position:absolute;inset:0;display:block;width:100%;height:100%;border-radius:0;box-shadow:none;overflow:hidden;background:#973b59}
+    .hero-photo img{display:block;width:100%;height:100%;aspect-ratio:auto;object-fit:cover;object-position:center center}
+    .hero-copy{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;max-width:850px;margin:0 auto;text-align:center;padding:0}
+    .hero .eyebrow{justify-content:center;color:#ffe2e9;font-size:12px;font-weight:700;letter-spacing:.17em;text-shadow:0 1px 6px rgba(37,12,26,.4)}
+    .hero .eyebrow:before{background:#ffe2e9}
+    .hero .hero-copy h1{max-width:780px;margin:15px auto 14px;color:#fff;font-size:clamp(45px,5.1vw,78px);font-weight:600;line-height:1.06;letter-spacing:-.05em;text-shadow:0 3px 22px rgba(20,8,12,.5)}
+    .hero .hero-copy h1 em{color:#ffe5ed;font-style:italic}
+    .hero .hero-copy p{max-width:600px;margin:0 auto 23px;color:#fff;font-size:clamp(14px,1.3vw,18px);font-weight:500;line-height:1.5;text-shadow:0 2px 12px rgba(20,8,12,.7)}
+    .hero-actions{display:flex;justify-content:center;align-items:center;width:100%;gap:0}
+    .hero-actions .hero-cta{min-width:215px;min-height:54px;padding:14px 26px;border-radius:999px;background:#fff;color:#76233f;box-shadow:0 10px 32px rgba(32,5,19,.25);font-size:15px;font-weight:750;transition:transform .2s,background .2s,box-shadow .2s}
+    .hero-actions .hero-cta:hover{background:#fff0f4;color:#76233f;box-shadow:0 12px 34px rgba(32,5,19,.33);transform:translateY(-2px)}
+    .hero-proof{display:none}
     @media(max-width:1000px) and (min-width:761px){
-      .hero-grid{grid-template-columns:minmax(0,.9fr) minmax(0,1.25fr);min-height:475px;gap:16px}
-      .hero-copy h1{font-size:clamp(36px,4.6vw,48px)}
-      .hero-copy{padding:30px 0}
+      .hero-grid{min-height:clamp(560px,calc(100svh - 82px),760px)}
+      .hero .hero-copy h1{font-size:clamp(43px,5.6vw,63px)}
     }
     @media(max-width:760px){
-      .hero-grid{display:flex;flex-direction:column;gap:0;min-height:0}
-      .hero-copy{padding:31px 0 22px;width:100%}
-      .hero-copy h1{font-size:clamp(35px,9vw,44px);line-height:1.1}
-      .hero-visual{height:auto;width:100%;margin:0 0 24px;align-self:stretch}
-      .hero-photo{border-radius:16px;box-shadow:0 10px 30px rgba(85,33,51,.1)}
-      .hero-photo img{aspect-ratio:1086/1448;height:auto;object-fit:contain}
+      .hero-grid{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:0;min-height:clamp(540px,calc(100svh - 136px),790px);padding:60px 19px clamp(43px,8svh,86px)}
+      .hero-photo img{object-position:center center}
+      .hero:after{background:linear-gradient(180deg,rgba(35,10,26,.03) 0%,rgba(35,10,26,0) 43%,rgba(35,10,26,.20) 61%,rgba(35,10,26,.86) 100%)}
+      .hero-copy{width:100%;max-width:470px;padding:0;margin:0}
+      .hero .eyebrow{font-size:10px;letter-spacing:.13em}
+      .hero .hero-copy h1{font-size:clamp(36px,9vw,49px);line-height:1.08;letter-spacing:-.045em;margin:12px auto 11px;max-width:370px}
+      .hero .hero-copy p{font-size:13px;line-height:1.5;margin:0 auto 19px;max-width:320px}
+      .hero-actions{justify-content:center}
+      .hero-actions .hero-cta{min-height:50px;min-width:208px;padding:13px 23px;font-size:14px}
+      .hero-visual{position:absolute;inset:0;width:100%;height:100%;margin:0;align-self:auto}
+      .hero-photo{height:100%;width:100%;border-radius:0;box-shadow:none}
+    }
+    @media(max-width:380px){
+      .hero-grid{min-height:clamp(520px,calc(100svh - 132px),740px);padding-bottom:48px}
+      .hero .hero-copy h1{font-size:clamp(32px,9vw,39px)}
+      .hero .hero-copy p{font-size:12px}
     }
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
   </style>
@@ -134,7 +153,24 @@
   <div class="notice">COSMÉTICOS DO BRASIL E DA CHINA · ENCOMENDAS EM MOÇAMBIQUE</div>
   <header class="nav"><div class="wrap nav-inner"><a href="#inicio" class="logo" aria-label="Beleza Brasil e China, início"><span class="logo-main" id="brandLogo"><img class="brand-image" src="assets/images/a_clean_vector_style_logo_on_a_transparent_backgro.png" width="2172" height="724" alt="Logótipo Beleza Brasil e China" /></span></a><nav class="navlinks" id="navlinks"><a href="#coleccoes">Colecções</a><a href="#produtos">Produtos</a><a href="#sobre">A nossa proposta</a><a href="#perguntas">Perguntas frequentes</a></nav><div class="navright"><button class="btn small" id="headerWhatsapp">WhatsApp <span aria-hidden="true">↗</span></button><button class="iconbtn" id="cartOpen" aria-label="Abrir carrinho"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 4h2l2 12h12l2-9H6"/><circle cx="9" cy="20" r="1.2"/><circle cx="18" cy="20" r="1.2"/></svg><span class="cartcount" id="cartCount">0</span></button><button class="iconbtn menu" id="menuToggle" aria-label="Abrir menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button></div></div></header>
   <main>
-    <section class="hero" id="inicio"><div class="wrap hero-grid"><div class="hero-copy"><div class="eyebrow">A sua beleza, o nosso cuidado</div><h1>O melhor dos <em>cuidados do Brasil e da China</em> para si.</h1><p>Descubra produtos para cabelo, rosto e corpo, escolhidos para transformar os pequenos cuidados do dia-a-dia em momentos especiais.</p><div class="hero-actions"><a href="#produtos" class="btn">Descobrir produtos <span aria-hidden="true">→</span></a><a href="#coleccoes" class="btn outline">Explorar colecções</a></div><div class="hero-proof"><span><b>✓</b> Catálogo organizado</span><span><b>✓</b> Atendimento por WhatsApp</span></div></div><div class="hero-visual"><picture class="hero-photo"><source media="(max-width: 760px)" srcset="assets/images/hero-mobile.webp" type="image/webp" /><img src="assets/images/hero-desktop.webp" width="1672" height="941" alt="Duas modelos moçambicanas com produtos cosméticos Dove e sacola da Beleza Brasil e China" fetchpriority="high" decoding="async" /></picture></div></div></section>
+    <section class="hero" id="inicio" aria-labelledby="heroHeading">
+      <div class="wrap hero-grid">
+        <div class="hero-visual">
+          <picture class="hero-photo">
+            <source media="(max-width: 760px)" srcset="assets/images/hero-mobile.webp" type="image/webp" />
+            <img src="assets/images/hero-desktop.webp" width="1672" height="941" alt="Duas modelos moçambicanas com cosméticos Dove e uma sacola Beleza Brasil e China" fetchpriority="high" decoding="async" />
+          </picture>
+        </div>
+        <div class="hero-copy">
+          <div class="eyebrow">Beleza Brasil e China</div>
+          <h1 id="heroHeading">A sua beleza <em>começa aqui.</em></h1>
+          <p>Cuidados para cabelo, rosto e corpo, escolhidos para si.</p>
+          <div class="hero-actions">
+            <a href="#produtos" class="btn hero-cta">Explorar produtos <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
     <section class="section" id="coleccoes"><div class="wrap"><div class="sect-head"><div><div class="eyebrow">Encontre o seu ritual</div><h2>O cuidado certo para si.</h2></div><p>Comece por aquilo de que mais gosta. Explore o catálogo por categoria.</p></div><div class="category-grid"><button class="category c1" data-jump="Cabelo"><svg viewBox="0 0 170 230" aria-hidden="true"><rect x="50" y="24" width="76" height="191" rx="20" fill="#b35670"/><rect x="66" y="11" width="45" height="22" rx="4" fill="#f0c4b6"/><rect x="60" y="88" width="56" height="91" rx="3" fill="#f9e7df"/><text x="88" y="120" font-size="14" text-anchor="middle" fill="#a55d6e" font-family="Georgia">B+C</text><text x="88" y="144" font-size="8" text-anchor="middle" fill="#a55d6e">CACHOS</text></svg><span class="cat-txt"><strong>Cabelo</strong><span>Produtos para os seus fios →</span></span></button><button class="category c2" data-jump="Rosto"><svg viewBox="0 0 170 230" aria-hidden="true"><rect x="57" y="24" width="74" height="193" rx="18" fill="#e1c0a0"/><rect x="70" y="10" width="47" height="27" rx="6" fill="#b08c74"/><rect x="65" y="90" width="58" height="91" rx="4" fill="#fff9ee"/><text x="94" y="122" font-size="14" text-anchor="middle" fill="#aa8c70" font-family="Georgia">B+C</text><text x="94" y="146" font-size="8" text-anchor="middle" fill="#aa8c70">SKIN</text></svg><span class="cat-txt"><strong>Rosto</strong><span>Rituais para a sua pele →</span></span></button><button class="category c3" data-jump="Corpo"><svg viewBox="0 0 170 230" aria-hidden="true"><rect x="45" y="96" width="92" height="121" rx="20" fill="#e2acaa"/><rect x="43" y="76" width="96" height="33" rx="10" fill="#8a535d"/><rect x="55" y="119" width="72" height="69" rx="2" fill="#fff2e4"/><text x="91" y="151" text-anchor="middle" font-size="14" fill="#ae7773" font-family="Georgia">B+C</text><text x="91" y="166" text-anchor="middle" font-size="7" fill="#ae7773">BODY</text></svg><span class="cat-txt"><strong>Corpo</strong><span>Carinho da cabeça aos pés →</span></span></button></div></div></section>
     <section class="products-section" id="produtos"><div class="wrap"><div class="sect-head"><div><div class="eyebrow">A nossa selecção</div><h2>Escolhas para amar.</h2></div><p>Descubra as nossas sugestões e junte os seus favoritos numa única encomenda.</p></div><div class="filterbar" id="filters" aria-label="Filtrar produtos"></div><div class="products" id="productGrid"></div><p class="demo-note">Catálogo, designações e preços apresentados apenas a título ilustrativo. Substituir pelos produtos reais antes da publicação.</p></div></section>
     <section class="section" id="sobre"><div class="wrap"><div class="feature"><div class="feature-copy"><div class="eyebrow">Beleza sem fronteiras</div><h2>A beleza está nos seus pequenos rituais.</h2><p>Uma loja pensada para apresentar produtos de cosmética do Brasil e da China com clareza, dar destaque aos seus benefícios e facilitar o contacto antes de cada compra.</p><a href="#produtos" class="btn" style="align-self:start">Ver catálogo <span aria-hidden="true">→</span></a></div><div class="feature-art"><svg viewBox="0 0 600 390" aria-hidden="true"><defs><linearGradient id="fg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f8e4d7"/><stop offset="1" stop-color="#bd7d86"/></linearGradient></defs><circle cx="320" cy="210" r="170" fill="#fff6"/><path d="M0 340Q160 270 320 340T600 330V390H0Z" fill="#e0b7ad"/><g stroke="#7f8c6b" stroke-width="7" fill="none" stroke-linecap="round" opacity=".5"><path d="M80 365q35-130 100-235M480 370q-30-140-105-246"/></g><g fill="#a9b398" opacity=".6"><ellipse cx="116" cy="235" rx="17" ry="64" transform="rotate(-40 116 235)"/><ellipse cx="151" cy="177" rx="15" ry="61" transform="rotate(40 151 177)"/><ellipse cx="455" cy="211" rx="15" ry="62" transform="rotate(40 455 211)"/><ellipse cx="421" cy="164" rx="14" ry="57" transform="rotate(-35 421 164)"/></g><ellipse cx="307" cy="338" rx="153" ry="15" fill="#7d44452b"/><g><rect x="184" y="115" width="115" height="216" rx="20" fill="#bb697f"/><rect x="210" y="85" width="65" height="37" rx="6" fill="#ad8774"/><rect x="218" y="67" width="49" height="18" rx="5" fill="#b9a18d"/><rect x="204" y="181" width="75" height="98" rx="3" fill="#ffeedf"/><text x="242" y="221" font-size="16" font-family="Georgia" text-anchor="middle" fill="#995c70">B+C</text><text x="242" y="244" font-size="8" text-anchor="middle" fill="#995c70">CUIDADO</text><rect x="315" y="169" width="122" height="161" rx="20" fill="url(#fg)"/><rect x="305" y="147" width="142" height="35" rx="8" fill="#96656d"/><rect x="333" y="210" width="85" height="73" rx="4" fill="#fff1e6"/><text x="375" y="241" font-size="16" font-family="Georgia" text-anchor="middle" fill="#a26378">B+C</text><text x="375" y="260" font-size="8" text-anchor="middle" fill="#a26378">RITUAL</text></g></svg></div></div><div class="benefits"><div class="benefit"><div class="benefit-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></svg></div><div><h3>Informação clara</h3><p>Cada produto tem uma descrição para ajudar a comparar alternativas antes da compra.</p></div></div><div class="benefit"><div class="benefit-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16v12H6l-2 4V4Z"/><path d="M8 9h8M8 12h5"/></svg></div><div><h3>Atendimento próximo</h3><p>Esclareça dúvidas e confirme a disponibilidade directamente por WhatsApp.</p></div></div><div class="benefit"><div class="benefit-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h12v11H3zM15 12h4l3 3v4h-7z"/><circle cx="7" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg></div><div><h3>Entrega a combinar</h3><p>Confirme os locais, os custos e os prazos de entrega antes de concluir a encomenda.</p></div></div></div></div></section>
