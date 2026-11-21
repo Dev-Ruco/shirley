@@ -335,9 +335,52 @@
   function toast(s){$('#toast').textContent=s;$('#toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),3500)}
   function saveCart(){try{localStorage.setItem('beleza_catalog_cart_v2',JSON.stringify(cart))}catch(e){}renderCart()}
   function setBrand(){document.title=cfg.name+' — Cosméticos do Brasil e da China';$('#footerBrand').textContent=cfg.name;const words=cfg.name.trim().split(/\s+/);const last=words.pop()||'Brasil';const first=words.join(' ');const logo=cfg.name==='Beleza Brasil e China'?'Beleza <em>Brasil e China.</em>':(first?esc(first)+' ':'')+'<em>'+esc(last)+(last.endsWith('.')?'':'.')+'</em>';const image='<img class="brand-image" src="assets/images/a_clean_vector_style_logo_on_a_transparent_backgro.png" width="2172" height="724" alt="Logótipo Beleza Brasil e China" />';$('#brandLogo').innerHTML=cfg.name==='Beleza Brasil e China'?image:logo;$('#footerLogo').innerHTML=cfg.name==='Beleza Brasil e China'?image:logo;$('#storeName').value=cfg.name;$('#storePhone').value=cfg.phone;}
-  function renderFilters(){$('#filters').innerHTML=['Todos','Cabelo','Rosto','Corpo'].map(c=>`<button class="chip ${active===c?'active':''}" data-filter="${c}" aria-pressed="${active===c}">${c==='Todos'?'Todos os produtos':c}</button>`).join('')}
-  function renderProducts(){renderFilters();$('#productGrid').innerHTML=products.filter(p=>active==='Todos'||p.category===active).map(p=>`<article class="product"><div class="pvisual" style="--vbg:${p.bg}"><span class="ptag">${esc(p.tag)}</span>${svg(p)}</div><div class="ptext"><div class="pcat">${esc(p.category)}</div><h3 class="ptitle">${esc(p.name)}</h3><p class="pdesc">${esc(p.desc)}</p><div class="pbottom"><div class="price">${money(p.price)}</div><button class="addbtn" data-add="${p.id}" aria-label="Adicionar ${esc(p.name)} ao carrinho"><svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.7"><path d="M12 5v14M5 12h14"/></svg></button></div></div></article>`).join('')}
-  function renderCart(){const entries=Object.entries(cart).filter(([id,q])=>Number(q)>0&&products.find(p=>p.id===Number(id)));const count=entries.reduce((s,[,q])=>s+Number(q),0);const total=entries.reduce((s,[id,q])=>s+products.find(p=>p.id===Number(id)).price*q,0);$('#cartCount').textContent=count;$('#mobileCartCount').textContent=count;$('#cartTotal').textContent=money(total);$('#cartItems').innerHTML=entries.length?entries.map(([id,q])=>{const p=products.find(p=>p.id===Number(id));return `<div class="cart-item"><div class="thumb" style="background:${p.bg}">${svg(p)}</div><div class="ci-main"><div class="ci-name">${esc(p.name)}</div><div class="ci-price">${money(p.price)}</div><div class="counter"><button data-qty="${id}" data-step="-1" aria-label="Diminuir quantidade de ${esc(p.name)}">−</button><span>${q}</span><button data-qty="${id}" data-step="1" aria-label="Aumentar quantidade de ${esc(p.name)}">+</button></div><button class="remove" data-remove="${id}">Remover</button></div></div>`}).join(''):`<div class="empty"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 4h2l2 12h12l2-9H6"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>O carrinho está vazio.<br>Adicione alguns produtos do catálogo.</div>`}
+  function renderFilters(){
+    $('#filters').innerHTML=categories.map(c=>{
+      const count=c==='Todos'?products.length:products.filter(p=>p.category===c).length;
+      return `<button type="button" class="chip ${active===c?'active':''}" data-filter="${c}" aria-pressed="${active===c}">${c==='Todos'?'Todos':esc(c)} <span class="filter-count">${count}</span></button>`;
+    }).join('');
+  }
+  function productPhoto(p){
+    return `<img class="product-photo" src="${esc(catalogImage(p.img))}" width="960" height="1280" loading="lazy" decoding="async" alt="Fotografia representativa: ${esc(p.name)} ${esc(p.size)}" />`;
+  }
+  function renderProducts(){
+    renderFilters();
+    const found=products.filter(p=>active==='Todos'||p.category===active);
+    $('#productGrid').innerHTML=found.map(p=>`<article class="product">
+      <div class="pvisual"><span class="ptag">${esc(p.size)}</span>${productPhoto(p)}</div>
+      <div class="ptext">
+        <div class="pcat">${esc(p.category)} · ${esc(p.brand)}</div>
+        <h3 class="ptitle">${esc(p.name)}</h3>
+        <p class="pdesc">${esc(p.desc)}</p>
+        <div class="pbottom"><div class="price">${money(p.price)}</div>
+          <button type="button" class="addbtn" data-add="${p.id}" aria-label="Adicionar ${esc(p.name)} ao carrinho">
+            <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.7" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>`).join('');
+  }
+  function renderCart(){
+    const entries=Object.entries(cart).filter(([id,q])=>Number(q)>0&&products.some(p=>p.id===Number(id)));
+    const count=entries.reduce((sum,[,q])=>sum+Number(q),0);
+    const total=entries.reduce((sum,[id,q])=>sum+products.find(p=>p.id===Number(id)).price*Number(q),0);
+    $('#cartCount').textContent=count;
+    $('#mobileCartCount').textContent=count;
+    $('#cartTotal').textContent=money(total);
+    $('#cartItems').innerHTML=entries.length?entries.map(([id,q])=>{
+      const p=products.find(p=>p.id===Number(id));
+      return `<div class="cart-item"><div class="thumb">${productPhoto(p)}</div><div class="ci-main">
+        <div class="ci-name">${esc(p.name)}</div>
+        <div class="ci-price">${money(p.price)} · ${esc(p.size)}</div>
+        <div class="counter">
+          <button data-qty="${id}" data-step="-1" aria-label="Diminuir quantidade de ${esc(p.name)}">−</button>
+          <span>${q}</span><button data-qty="${id}" data-step="1" aria-label="Aumentar quantidade de ${esc(p.name)}">+</button>
+        </div>
+        <button class="remove" data-remove="${id}">Remover</button>
+      </div></div>`;
+    }).join(''):`<div class="empty"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 4h2l2 12h12l2-9H6"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>O carrinho está vazio.<br>Adicione alguns produtos do catálogo.</div>`;
+  }
   function showPanel(which){$('#overlay').classList.add('show');document.body.classList.add('lock');if(which==='cart'){$('#cartDrawer').classList.add('open');$('#cartClose').focus()}else{$('#settingsModal').classList.add('open');$('#storeName').focus()}}
   function closePanels(){$('#overlay').classList.remove('show');$('#cartDrawer').classList.remove('open');$('#settingsModal').classList.remove('open');document.body.classList.remove('lock')}
   function whatsapp(message){const num=(cfg.phone||'').replace(/\D/g,'');if(num.length<10||num.length>15){closePanels();showPanel('settings');toast('Configure primeiro o WhatsApp da loja.');return;}window.open('https://wa.me/'+num+'?text='+encodeURIComponent(message),'_blank','noopener,noreferrer')}
