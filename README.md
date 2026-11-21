@@ -1,6 +1,6 @@
-# Shirley — Loja de Cosméticos Brasileiros
+# Shirley — Beleza Brasil e China
 
-Landing page **mobile-first** para apresentação e venda de cosméticos brasileiros, optimizada para telemóveis e sem dependências externas.
+Landing page **mobile-first** para apresentação e venda de cosméticos do Brasil e da China, optimizada para telemóveis e sem dependências externas.
 
 ## Funcionalidades
 - Navegação simplificada e barra inferior fixa para telemóveis.
@@ -14,7 +14,7 @@ Landing page **mobile-first** para apresentação e venda de cosméticos brasile
 Abra o ficheiro `index.html` num navegador. Não necessita de instalação, compilação ou servidor de aplicações.
 
 ## Personalizar antes de publicar
-1. Substitua o nome demonstrativo **Beleza Brasil** pelo nome comercial definitivo.
+1. A marca da loja é **Beleza Brasil e China**. Pode alterá-la no código, caso seja necessário.
 2. Configure o número WhatsApp da loja com indicativo internacional.
 3. Substitua os produtos, os preços em meticais e as ilustrações exemplificativas por informações e fotografias reais.
 4. Confirme as políticas de entrega, disponibilidade, pagamento, trocas e devoluções.
